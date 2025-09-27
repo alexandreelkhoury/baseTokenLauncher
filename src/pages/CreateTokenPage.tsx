@@ -22,7 +22,11 @@ export default function CreateTokenPage() {
     error,
     isConnected,
     isCorrectChain,
-    chainId
+    chainId,
+    isVerifying,
+    verificationStatus,
+    feeAmount,
+    feeRecipient
   } = useOpenZeppelinTokenDeployment()
 
   // Helper function to get network name
@@ -362,6 +366,36 @@ export default function CreateTokenPage() {
                 </motion.div>
               </div>
 
+              {/* Fee Disclosure */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 1.25 }}
+                className="mt-8"
+              >
+                <div className={`${colors.glassCard} rounded-2xl p-6 border border-blue-500/20`}>
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                      </svg>
+                    </div>
+                    <div className="flex-1">
+                      <h3 className={`${typography.cardTitle} text-lg mb-2`}>Token Creation Fee</h3>
+                      <p className={`${typography.bodyText} text-gray-300 mb-3`}>
+                        Creating a token requires a one-time fee of <span className="text-blue-400 font-semibold">{feeAmount} ETH</span> plus network gas fees.
+                      </p>
+                      <div className="flex items-center space-x-2 text-sm text-gray-400">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>Fee covers platform maintenance and development costs</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
               {/* Submit Button */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -411,12 +445,17 @@ export default function CreateTokenPage() {
                     {isCreating ? (
                       <div className="flex items-center justify-center space-x-3">
                         <div className="w-6 h-6 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
-                        <span>Creating Token on {getNetworkName()}...</span>
+                        <span>
+                          {isVerifying ? 'Verifying Contract...' : `Creating Token on ${getNetworkName()}...`}
+                        </span>
                       </div>
                     ) : (
-                      <div className="flex items-center justify-center space-x-3">
-                        <span>🚀</span>
-                        <span>Create Token on {getNetworkName()}</span>
+                      <div className="flex flex-col items-center justify-center space-y-1">
+                        <div className="flex items-center space-x-2">
+                          <span>🚀</span>
+                          <span>Create Token ({feeAmount} ETH + Gas)</span>
+                        </div>
+                        <span className="text-sm text-blue-200 opacity-80">One transaction • Auto-verified on Basescan</span>
                       </div>
                     )}
                   </motion.button>

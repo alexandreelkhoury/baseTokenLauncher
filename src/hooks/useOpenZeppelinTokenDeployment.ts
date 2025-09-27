@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from 'react'
 import { useAccount, useChainId, useSwitchChain, useDeployContract, useWaitForTransactionReceipt, usePublicClient } from 'wagmi'
 import { base, baseSepolia } from 'viem/chains'
-import { OPENZEPPELIN_ERC20_ABI, OPENZEPPELIN_ERC20_BYTECODE } from '../contracts/OpenZeppelinERC20Artifacts'
+import { parseEther } from 'viem'
+import { PAID_ERC20_ABI, PAID_ERC20_BYTECODE, FEE_AMOUNT, FEE_RECIPIENT } from '../contracts/PaidERC20Artifacts'
+import { verifyContract, encodeConstructorArguments, getPaidERC20SourceCode } from '../utils/contractVerification'
 
 export interface TokenData {
   name: string
@@ -33,6 +35,8 @@ export function useOpenZeppelinTokenDeployment() {
   const [userTokens, setUserTokens] = useState<CreatedToken[]>([])
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [isInitialLoading, setIsInitialLoading] = useState(true)
+  const [isVerifying, setIsVerifying] = useState(false)
+  const [verificationStatus, setVerificationStatus] = useState<'pending' | 'success' | 'failed' | null>(null)
   const hasInitiallyLoaded = useRef(false)
 
   // Deploy OpenZeppelin-based contract - THIS TRIGGERS REAL METAMASK POPUP! 🎯
@@ -82,6 +86,9 @@ export function useOpenZeppelinTokenDeployment() {
         }, 2000)
         
         loadUserTokens()
+
+        // Start contract verification after successful deployment
+        verifyDeployedContract(newTokenAddress)
       }
     }
   }, [isConfirmed, receipt, userAddress, hash, publicClient])
@@ -300,6 +307,56 @@ export function useOpenZeppelinTokenDeployment() {
     }
   }
 
+  // Store token data for verification
+  const pendingTokenDataRef = useRef<TokenData | null>(null)
+
+  const verifyDeployedContract = async (contractAddress: string) => {
+    if (!pendingTokenDataRef.current) {
+      console.warn('⚠️ No token data available for verification')
+      return
+    }
+
+    const tokenData = pendingTokenDataRef.current
+    
+    try {
+      setIsVerifying(true)
+      setVerificationStatus('pending')
+      
+      console.log('🔍 Starting contract verification...')
+      
+      // Encode constructor arguments for verification
+      const constructorArgs = encodeConstructorArguments(
+        tokenData.name,
+        tokenData.symbol,
+        BigInt(tokenData.totalSupply) * BigInt(10 ** tokenData.decimals),
+        FEE_RECIPIENT
+      )
+
+      const verificationResult = await verifyContract({
+        contractAddress,
+        sourceCode: getPaidERC20SourceCode(),
+        contractName: 'PaidERC20',
+        compilerVersion: 'v0.8.20+commit.a1b79de6', // Solidity 0.8.20
+        constructorArguments: constructorArgs,
+        chainId
+      })
+
+      if (verificationResult.success) {
+        console.log('✅ Contract verification submitted successfully!')
+        setVerificationStatus('success')
+      } else {
+        console.error('❌ Contract verification failed:', verificationResult.message)
+        setVerificationStatus('failed')
+      }
+
+    } catch (error) {
+      console.error('❌ Error during contract verification:', error)
+      setVerificationStatus('failed')
+    } finally {
+      setIsVerifying(false)
+    }
+  }
+
   const createToken = async (tokenData: TokenData) => {
     if (!isConnected || !userAddress) {
       throw new Error('Please connect your wallet first')
@@ -323,6 +380,10 @@ export function useOpenZeppelinTokenDeployment() {
 
     setError(null)
     setCreatedTokenAddress(null)
+    setVerificationStatus(null)
+
+    // Store token data for later verification
+    pendingTokenDataRef.current = tokenData
 
     try {
       console.log('🚀 Attempting token deployment...')
@@ -335,18 +396,21 @@ export function useOpenZeppelinTokenDeployment() {
         throw new Error('Missing required token data')
       }
       
-      console.log('🚀 Deploying Official OpenZeppelin ERC20 token...')
+      console.log('🚀 Deploying PaidERC20 token with 0.02 ETH fee...')
       console.log('Token data:', tokenData)
+      console.log('Fee amount:', FEE_AMOUNT, 'wei (0.02 ETH)')
+      console.log('Fee recipient:', FEE_RECIPIENT)
       
       deployContract({
-        bytecode: OPENZEPPELIN_ERC20_BYTECODE as `0x${string}`,
-        abi: OPENZEPPELIN_ERC20_ABI,
+        bytecode: PAID_ERC20_BYTECODE as `0x${string}`,
+        abi: PAID_ERC20_ABI,
         args: [
           tokenData.name,                    // string name
           tokenData.symbol,                  // string symbol  
-          BigInt(tokenData.totalSupply),     // uint256 totalSupply
-          tokenData.decimals                 // uint8 decimalsValue
+          BigInt(tokenData.totalSupply),     // uint256 initialSupply
+          FEE_RECIPIENT as `0x${string}`     // address feeRecipient
         ],
+        value: parseEther('0.02'), // 0.02 ETH fee payment
       })
 
       // What happens after clicking "Confirm" in MetaMask:
@@ -376,6 +440,10 @@ export function useOpenZeppelinTokenDeployment() {
     isConnected,
     chainId,
     isCorrectChain: chainId === base.id || chainId === baseSepolia.id,
-    transactionHash: hash
+    transactionHash: hash,
+    isVerifying,
+    verificationStatus,
+    feeAmount: '0.02', // For UI display
+    feeRecipient: FEE_RECIPIENT
   }
 }
