@@ -1,3 +1,4 @@
+import { useFirebaseAnalytics } from '../components/FirebaseProvider'
 import { Link } from 'react-router-dom'
 import { motion, useInView } from 'framer-motion'
 import React, { useRef, useState, useEffect } from 'react'
@@ -5,7 +6,6 @@ import { usePrivy } from '@privy-io/react-auth'
 import { base, baseSepolia } from 'viem/chains'
 import SEO from '../components/SEO'
 import WalletButton from '../components/WalletButton'
-import { useFirebaseAnalytics } from '../components/FirebaseProvider'
 import { useOpenZeppelinTokenDeployment } from '../hooks/useOpenZeppelinTokenDeployment'
 import { useTokenForm } from '../hooks/useTokenForm'
 import { layout, typography, colors } from '../styles/designSystem'
@@ -21,7 +21,6 @@ export default function HomePage() {
 
   // Token creation functionality
   const { authenticated } = usePrivy()
-  const { trackPageView, trackTokenCreation } = useFirebaseAnalytics()
   const { 
     createToken, 
     isCreating, 

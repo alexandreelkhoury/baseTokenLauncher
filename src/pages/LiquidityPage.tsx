@@ -1,3 +1,4 @@
+import { useFirebaseAnalytics } from '../components/FirebaseProvider'
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { usePrivy } from '@privy-io/react-auth'

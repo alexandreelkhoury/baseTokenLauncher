@@ -1,11 +1,10 @@
+import { useFirebaseAnalytics } from '../components/FirebaseProvider'
 import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import SEO from '../components/SEO'
-import { useFirebaseAnalytics } from '../components/FirebaseProvider'
 import { layout, typography, colors } from '../styles/designSystem'
 
 export default function CookiePolicyPage() {
-  const { trackPageView } = useFirebaseAnalytics()
 
   useEffect(() => {
     trackPageView('cookie_policy')

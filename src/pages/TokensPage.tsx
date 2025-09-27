@@ -1,3 +1,4 @@
+import { useFirebaseAnalytics } from '../components/FirebaseProvider'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { usePrivy } from '@privy-io/react-auth'

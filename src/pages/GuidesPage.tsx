@@ -1,3 +1,4 @@
+import { useFirebaseAnalytics } from '../components/FirebaseProvider'
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Link, useSearchParams } from 'react-router-dom'

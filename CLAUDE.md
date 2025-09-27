@@ -8,6 +8,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run build` - Build the application for production
 - `npm run preview` - Preview the production build locally
 
+## Production Deployment
+
+This app is production-ready and optimized for deployment to:
+- **Firebase Hosting**: Fast CDN delivery with excellent caching
+
+### Build Requirements
+- Run `npm run build` to create optimized production build in `dist/` folder
+- Ensure `VITE_PRIVY_APP_ID` environment variable is configured for target environment
+- Test locally with `npm run preview` before deployment
+- All unused dependencies and files have been removed for optimal bundle size
+
 ## Project Architecture
 
 This is a React TypeScript application built with Vite that creates a token launcher interface for the Base blockchain. Key architectural components:
@@ -57,36 +68,33 @@ PrivyProvider (auth)
 - `framer-motion` for animations (used extensively throughout UI)
 - `@tanstack/react-query` for server state management
 
-## Uniswap V3 Integration
-The app integrates with Uniswap V3 for liquidity management on Base network:
+## Uniswap V2 Integration
+The app integrates with Uniswap V2 for liquidity management on Base network:
 
-### Required Dependencies
-- `@uniswap/v3-sdk` - Core V3 SDK for position management
-- `@uniswap/sdk-core` - Essential utilities and types
-- `@uniswap/smart-order-router` - Advanced routing capabilities
+### Core Features
+- **Add Liquidity**: Two-step process (approve → add) with comprehensive transaction monitoring
+- **Remove Liquidity**: Two-step process (approve LP tokens → remove) with automatic balance detection
+- **LP Token Management**: Automatic storage and retrieval of LP token addresses for easy withdrawal
+- **Transaction Safety**: Proper slippage protection and minimum amount calculations
 
 ### Base Network Contracts
-- **Base Mainnet**: Production-ready deployment with full Uniswap Labs support
-  - NonfungiblePositionManager: `0x03a520b32C04BF3bEEf7BEb72E919cf822Ed34f1`
-  - SwapRouter02: `0x2626664c2603336E57B271c5C0b26F421741e481`
-  - UniswapV3Factory: `0x33128a8fC17869897dcE68Ed026d694621f6FDfD`
+- **Base Mainnet**: Production deployment
+  - UniswapV2Factory: `0x8909Dc15e40173Ff4699343b6eB8132c65e18eC6`
+  - UniswapV2Router: `0x4752ba5dbc23f44d87826276bf6fd6b1c372ad24`
   - WETH: `0x4200000000000000000000000000000000000006`
 
-- **Base Sepolia**: Testnet deployment for development
-  - NonfungiblePositionManager: `0x27F971cb582BF9E50F397e4d29a5C7A34f11faA2`
-  - SwapRouter02: `0x94cC0AaC535CCDB3C01d6787D6413C739ae12bc4`
-  - UniswapV3Factory: `0x4752ba5DBc23f44D87826276BF6Fd6b1C372aD24`
+- **Base Sepolia**: Not supported (Uniswap V2 not deployed on Base Sepolia)
 
 ### Implementation Guidelines
-- Use environment variables to switch between mainnet/testnet contracts
-- Implement proper error handling for slippage, deadline, and insufficient funds
-- Provide clear transaction status updates (approving → adding → success)
-- Start development on Base Sepolia, deploy to Base Mainnet for production
+- All liquidity operations use wagmi's `useWriteContract` with async patterns
+- Proper error handling with categorized error types (USER_REJECTED, GAS_ERROR, etc.)
+- Transaction receipts are parsed to extract LP token addresses automatically
+- LP tokens are stored in localStorage for easy access in withdrawal flows
+- Minimum amounts calculated dynamically based on pool state to prevent MEV attacks
 
-### Key Resources
-- Official V3 SDK Documentation: https://docs.uniswap.org/sdk/v3/overview
-- Base Network Deployments: https://docs.uniswap.org/contracts/v3/reference/deployments/base-deployments
-- Adding Liquidity Guide: https://docs.uniswap.org/sdk/v3/guides/liquidity/minting
+### Transaction Flow
+1. **Add Liquidity**: Select tokens → Set amounts → Approve → Add → Success modal with DEXScreener link
+2. **Remove Liquidity**: Select LP token → Set amount → Approve LP → Remove → Success modal with transaction link
 
 ## Development Notes
 - Uses strict TypeScript configuration with separate app and node configs
