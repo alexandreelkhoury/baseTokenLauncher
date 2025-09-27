@@ -1,0 +1,35 @@
+# Base Token Creator - SEO Robots Configuration
+User-agent: *
+Allow: /
+
+# Priority pages for indexing
+Allow: /
+Allow: /create
+Allow: /guide
+Allow: /tokens
+Allow: /liquidity
+
+# Block unnecessary resources
+Disallow: /src/
+Disallow: /node_modules/
+Disallow: /*.json$
+Disallow: /*.config.*$
+
+# Sitemap location
+Sitemap: https://base-token-creator.com/sitemap.xml
+
+# Crawl delay for respectful crawling
+Crawl-delay: 1
+
+# Specific bot instructions
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /

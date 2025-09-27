@@ -1,0 +1,41 @@
+{
+  "name": "react-token-launcher",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview",
+    "firebase:emulators": "firebase emulators:start",
+    "firebase:build": "npm run build && firebase deploy --only hosting",
+    "firebase:deploy": "firebase deploy",
+    "firebase:functions": "firebase deploy --only functions",
+    "firebase:rules": "firebase deploy --only firestore:rules,storage"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.4.0",
+    "@privy-io/react-auth": "^2.24.0",
+    "@privy-io/wagmi": "^1.0.6",
+    "@tanstack/react-query": "^5.87.1",
+    "firebase": "^12.2.1",
+    "framer-motion": "^11.11.9",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-helmet-async": "^2.0.5",
+    "react-router-dom": "^6.8.0",
+    "viem": "^2.37.5",
+    "wagmi": "^2.16.9"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.0.0",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.0",
+    "solc": "^0.8.30",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.0"
+  }
+}

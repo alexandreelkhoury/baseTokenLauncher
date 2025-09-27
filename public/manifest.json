@@ -1,0 +1,34 @@
+{
+  "name": "Base Token Creator - ERC20 Token Generator",
+  "short_name": "Base Token Creator",
+  "description": "Create ERC20 tokens on Base blockchain with no coding required. 90% lower fees than Ethereum.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#111827",
+  "theme_color": "#0052FF",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-192.png", 
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icon-512.png",
+      "type": "image/png", 
+      "sizes": "512x512"
+    }
+  ],
+  "categories": ["finance", "utilities", "productivity"],
+  "lang": "en-US",
+  "dir": "ltr",
+  "scope": "/",
+  "related_applications": [],
+  "prefer_related_applications": false
+}

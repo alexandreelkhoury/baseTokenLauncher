@@ -1,0 +1,32 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Users can read/write their own profile
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Anyone can read tokens, but only authenticated users can write them
+    // and only to their own deployerAddress
+    match /tokens/{tokenId} {
+      allow read: if true; // Public read access for token data
+      allow write: if request.auth != null && 
+                   request.auth.uid != null &&
+                   resource.data.deployerAddress == request.auth.token.walletAddress;
+    }
+    
+    // Liquidity data follows same pattern as tokens
+    match /liquidity/{liquidityId} {
+      allow read: if true; // Public read for analytics
+      allow write: if request.auth != null && 
+                   request.auth.uid != null &&
+                   resource.data.userAddress == request.auth.token.walletAddress;
+    }
+    
+    // Analytics data - read only for users, write for authenticated users
+    match /analytics/{docId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+  }
+}
