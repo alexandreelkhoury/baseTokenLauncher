@@ -250,22 +250,22 @@ export function useOpenZeppelinTokenDeployment() {
       const [name, symbol, decimals, totalSupply] = await Promise.all([
         publicClient.readContract({
           address: tokenAddress as `0x${string}`,
-          abi: OPENZEPPELIN_ERC20_ABI,
+          abi: PAID_ERC20_ABI,
           functionName: 'name'
         }) as Promise<string>,
         publicClient.readContract({
           address: tokenAddress as `0x${string}`,
-          abi: OPENZEPPELIN_ERC20_ABI,
+          abi: PAID_ERC20_ABI,
           functionName: 'symbol'
         }) as Promise<string>,
         publicClient.readContract({
           address: tokenAddress as `0x${string}`,
-          abi: OPENZEPPELIN_ERC20_ABI,
+          abi: PAID_ERC20_ABI,
           functionName: 'decimals'
         }) as Promise<number>,
         publicClient.readContract({
           address: tokenAddress as `0x${string}`,
-          abi: OPENZEPPELIN_ERC20_ABI,
+          abi: PAID_ERC20_ABI,
           functionName: 'totalSupply'
         }) as Promise<bigint>
       ])
