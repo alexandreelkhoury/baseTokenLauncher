@@ -24,9 +24,7 @@ export default function CreateTokenPage() {
     isCorrectChain,
     chainId,
     isVerifying,
-    verificationStatus,
-    feeAmount,
-    feeRecipient
+    feeAmount
   } = useOpenZeppelinTokenDeployment()
 
   // Helper function to get network name
