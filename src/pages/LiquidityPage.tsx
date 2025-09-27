@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useFirebaseAnalytics } from '../components/FirebaseProvider'
-import { trackPageView, trackLiquidityAdded, trackLiquidityRemoved, trackError } from '../utils/analytics'
+import { trackPageView } from '../utils/analytics'
 import { usePrivy } from '@privy-io/react-auth'
 import { useAccount, useBalance, useChainId } from 'wagmi'
 import WalletButton from '../components/WalletButton'

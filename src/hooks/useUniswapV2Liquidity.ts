@@ -321,7 +321,7 @@ export function useUniswapV2Liquidity() {
         })
         // Transaction hash is set in individual functions
       },
-      onSettled: (data, error, variables, context) => {
+      onSettled: (data, error) => {
         console.log('📋 Transaction settled:', {
           success: !!data,
           hasError: !!error,
@@ -367,7 +367,7 @@ export function useUniswapV2Liquidity() {
   })
 
   // Check if pool exists
-  const { data: poolAddress, refetch: refetchPoolAddress } = useReadContract({
+  const { data: poolAddress } = useReadContract({
     address: getContracts().factory as `0x${string}`,
     abi: FACTORY_ABI,
     functionName: 'getPair',
