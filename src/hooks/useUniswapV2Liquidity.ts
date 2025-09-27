@@ -1411,7 +1411,7 @@ const getErrorMessage = (error: any, errorType: string): string => {
 
     let pool: LiquidityPool | null | undefined = null
     let lpTokenAddress: string
-    let lpTokenBalance: bigint
+    let lpTokenBalance: bigint = 0n
 
     if (lpAmount) {
       // New mode: LP token address and amount provided directly
@@ -1676,122 +1676,6 @@ const getErrorMessage = (error: any, errorType: string): string => {
 
   const clearSuccessState = () => {
     setLastSuccessfulPool(null)
-  }
-
-  // UTILITY: Function to manually fix existing pools with invalid LP addresses
-  // This can be used to resolve LP addresses for pools created before the storage system was implemented
-  const fixExistingPools = async () => {
-    console.log('🔧 MANUAL FIX: Starting to fix existing pools...')
-    
-    try {
-      const stored = localStorage.getItem(LIQUIDITY_STORAGE_KEY)
-      if (!stored) {
-        console.log('No pools found in storage')
-        return
-      }
-      
-      const allPools = JSON.parse(stored)
-      console.log('📊 Found pools in storage:', allPools.length)
-      
-      const userPools = allPools.filter((pool: any) => 
-        pool && 
-        typeof pool === 'object' && 
-        pool.id && 
-        pool.id.includes(userAddress?.toLowerCase() || '')
-      )
-      
-      console.log('👤 User pools found:', userPools.length)
-      
-      for (const pool of userPools) {
-        console.log('🔍 Checking pool:', {
-          id: pool.id,
-          tokenSymbol: pool.tokenSymbol,
-          poolAddress: pool.poolAddress,
-          tokenAddress: pool.tokenAddress
-        })
-        
-        if (pool.poolAddress === '0x0000000000000000000000000000000000000000' || !pool.poolAddress || pool.poolAddress.startsWith('MIGRATION_')) {
-          console.log('🔄 Fixing pool with invalid LP address:', pool.tokenSymbol)
-          
-          try {
-            // Query the real LP address from Uniswap V2 factory
-            const realLpAddress = await publicClient?.readContract({
-              address: getContracts().factory as `0x${string}`,
-              abi: FACTORY_ABI,
-              functionName: 'getPair',
-              args: [pool.tokenAddress as `0x${string}`, getContracts().weth as `0x${string}`]
-            })
-            
-            if (realLpAddress && realLpAddress !== '0x0000000000000000000000000000000000000000') {
-              console.log('✅ Found real LP address for', pool.tokenSymbol, ':', realLpAddress)
-              
-              // Update the pool in the array
-              const updatedPool = { ...pool, poolAddress: realLpAddress }
-              const poolIndex = allPools.findIndex((p: any) => p.id === pool.id)
-              if (poolIndex >= 0) {
-                allPools[poolIndex] = updatedPool
-              }
-              
-              // Add to LP token storage
-              saveLPTokenToStorage({
-                address: realLpAddress,
-                name: `${pool.tokenSymbol}/ETH LP`,
-                symbol: `${pool.tokenSymbol}-ETH-LP`,
-                poolAddress: realLpAddress,
-                tokenA: pool.tokenAddress,
-                tokenB: getContracts().weth,
-                tokenASymbol: pool.tokenSymbol,
-                tokenBSymbol: 'ETH',
-                createdAt: pool.createdAt,
-                chainId,
-                userAddress: userAddress as string,
-                txHash: pool.txHash
-              })
-              
-              console.log('✅ Fixed and saved LP token for:', pool.tokenSymbol)
-            } else {
-              console.log('❌ No LP address found for:', pool.tokenSymbol, '- pool may not exist')
-            }
-          } catch (error) {
-            console.error('❌ Error querying LP address for', pool.tokenSymbol, ':', error)
-          }
-        } else {
-          console.log('✅ Pool already has valid LP address:', pool.tokenSymbol)
-          
-          // Ensure it's in LP token storage
-          saveLPTokenToStorage({
-            address: pool.poolAddress,
-            name: `${pool.tokenSymbol}/ETH LP`,
-            symbol: `${pool.tokenSymbol}-ETH-LP`,
-            poolAddress: pool.poolAddress,
-            tokenA: pool.tokenAddress,
-            tokenB: getContracts().weth,
-            tokenASymbol: pool.tokenSymbol,
-            tokenBSymbol: 'ETH',
-            createdAt: pool.createdAt,
-            chainId,
-            userAddress: userAddress as string,
-            txHash: pool.txHash
-          })
-        }
-      }
-      
-      // Save updated pools
-      localStorage.setItem(LIQUIDITY_STORAGE_KEY, JSON.stringify(allPools))
-      console.log('✅ MANUAL FIX COMPLETE: Updated pools saved to storage')
-      
-      // Reload pools
-      const updatedUserPools = allPools.filter((pool: any) => 
-        pool && 
-        typeof pool === 'object' && 
-        pool.id && 
-        pool.id.includes(userAddress?.toLowerCase() || '')
-      )
-      setUserPools(updatedUserPools)
-      
-    } catch (error) {
-      console.error('❌ Error in manual fix:', error)
-    }
   }
 
   const contracts = getContracts()
