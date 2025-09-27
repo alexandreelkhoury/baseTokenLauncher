@@ -1409,7 +1409,7 @@ const getErrorMessage = (error: any, errorType: string): string => {
     // FIX: Set immediate loading state for better UX
     setIsPreparingRemoveLiquidity(true)
 
-    let pool: LiquidityPool | null = null
+    let pool: LiquidityPool | null | undefined = null
     let lpTokenAddress: string
     let lpTokenBalance: bigint
 
@@ -1554,7 +1554,7 @@ const getErrorMessage = (error: any, errorType: string): string => {
               if (stored) {
                 const allPools = JSON.parse(stored)
                 const updatedPools = allPools.map((p: any) => {
-                  if (p.id === pool.id) {
+                  if (p.id === pool?.id) {
                     return { ...p, poolAddress: realLpAddress }
                   }
                   return p
