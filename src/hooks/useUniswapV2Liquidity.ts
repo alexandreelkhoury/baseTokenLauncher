@@ -946,7 +946,7 @@ const getErrorMessage = (error: any, errorType: string): string => {
             setError(error instanceof Error ? error : new Error('Failed to remove liquidity'))
             setCurrentStep(null)
             setPoolToRemove(null)
-            setIsProcessing(false)
+            setIsPreparingRemoveLiquidity(false)
           }
         }, 1000) // Small delay to ensure state updates
       } else if (currentStep === 'remove_liquidity' && poolToRemove) {
@@ -1161,11 +1161,11 @@ const getErrorMessage = (error: any, errorType: string): string => {
                 needed: tokenAmountWei.toString()
               })
               setCurrentStep('approve')
-              approveToken()
+              await handleApproveToken(tokenProcessInfo)
             } else {
               console.log('✅ Token already approved, adding liquidity directly...')
               setCurrentStep('add')
-              addLiquidityStep(tokenProcessInfo)
+              await handleAddLiquidityStep(tokenProcessInfo)
             }
             return // Exit the function successfully
           } else {
