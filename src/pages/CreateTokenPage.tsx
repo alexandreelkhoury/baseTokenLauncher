@@ -6,12 +6,13 @@ import { Link } from 'react-router-dom'
 import { base, baseSepolia } from 'viem/chains'
 import WalletButton from '../components/WalletButton'
 import SEO from '../components/SEO'
-import { trackTokenResult} from '../utils/analytics'
+import { trackTokenResult, trackTokenCreation, trackFormSubmission, trackError } from '../utils/analytics'
 import { useOpenZeppelinTokenDeployment } from '../hooks/useOpenZeppelinTokenDeployment'
 import { useTokenForm } from '../hooks/useTokenForm'
 import { layout, typography, colors } from '../styles/designSystem'
 
 export default function CreateTokenPage() {
+  const analytics = useFirebaseAnalytics()
   const { ready, authenticated } = usePrivy()
   const { 
     createToken, 
@@ -32,7 +33,7 @@ export default function CreateTokenPage() {
   }
   
   // Use shared token form hook for validation and state management
-  const { formData, formErrors, handleInputChange, validateForm, resetForm } = useTokenForm()
+  const { formData, formErrors, handleInputChange, validateForm } = useTokenForm()
   const [showSuccess, setShowSuccess] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -60,20 +61,17 @@ export default function CreateTokenPage() {
       const saveToFirebase = async () => {
         try {
           // Log analytics event
-          logAnalyticsEvent('token_created', {
-            token_name: formData.name,
-            token_symbol: formData.symbol,
-            total_supply: formData.totalSupply,
-            decimals: formData.decimals,
-            contract_address: createdTokenAddress
+          trackTokenCreation(analytics, {
+            name: formData.name,
+            symbol: formData.symbol,
+            supply: formData.totalSupply,
+            network: chainId === base.id ? 'Base Mainnet' : 'Base Sepolia'
           })
 
           // Track successful token creation
-          trackTokenResult(true, {
-            symbol: formData.symbol,
-            name: formData.name,
-            totalSupply: formData.totalSupply,
-            contractAddress: createdTokenAddress
+          trackTokenResult(analytics, {
+            success: true,
+            tokenAddress: createdTokenAddress
           })
           
           console.log('Token created successfully - Firebase save disabled')
@@ -84,7 +82,7 @@ export default function CreateTokenPage() {
 
       saveToFirebase()
     }
-  }, [isSuccess, createdTokenAddress, formData, logAnalyticsEvent])
+  }, [isSuccess, createdTokenAddress, formData, analytics, chainId])
 
   const createTokenStructuredData = {
     "@context": "https://schema.org",
@@ -401,11 +399,11 @@ export default function CreateTokenPage() {
                 ) : (
                   <motion.button
                     type="submit"
-                    disabled={isCreating || Object.keys(formErrors).some(key => formErrors[key])}
+                    disabled={isCreating || Object.keys(formErrors).some(key => formErrors[key as keyof typeof formErrors])}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     className={`w-full py-6 text-xl font-semibold rounded-2xl transition-all duration-300 ${
-                      isCreating || Object.keys(formErrors).some(key => formErrors[key])
+                      isCreating || Object.keys(formErrors).some(key => formErrors[key as keyof typeof formErrors])
                         ? colors.primaryButtonDisabled
                         : colors.primaryButton
                     }`}

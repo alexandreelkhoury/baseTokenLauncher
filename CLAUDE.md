@@ -130,3 +130,49 @@ Following established design principles for optimal user experience:
 - **Clear CTAs**: Prominent call-to-action buttons with descriptive labels
 - **Error Prevention**: Inline validation and clear error messages
 - **Success Feedback**: Immediate confirmation of completed actions
+
+## Firebase Analytics Integration
+
+Comprehensive analytics tracking implemented for optimal user insights and debugging:
+
+### Core Analytics Events
+- **Page Views**: All pages track user navigation patterns
+  - `page_view` event with `page_name` parameter
+  - Tracks: home, create, tokens, liquidity, guides, faq, legal pages
+
+- **Token Creation Events**:
+  - `token_created` - Successful token deployment with metadata (name, symbol, supply, network)
+  - `token_deployment_result` - Success/failure tracking with error details
+  - Form submission tracking for UX optimization
+
+- **Liquidity Management Events**:
+  - `liquidity_added` - Track successful liquidity additions (token address, amounts, network)
+  - `liquidity_removed` - Track liquidity withdrawals (LP token amount, network)
+  - Transaction progress and completion tracking
+
+- **User Interaction Events**:
+  - `wallet_connected` / `wallet_disconnected` - Wallet connection patterns
+  - `network_switched` - Network switching behavior
+  - `button_clicked` - Key UI interaction tracking
+  - `form_submitted` - Form completion rates
+
+- **Error Tracking**:
+  - `error_occurred` - Comprehensive error logging with type, message, location
+  - User action context for debugging
+  - Categorized error types (transaction, validation, network, etc.)
+
+### Implementation Details
+- **Firebase Configuration**: `src/config/firebase.ts` with conditional analytics loading
+- **Analytics Provider**: `src/components/FirebaseProvider.tsx` with React context
+- **Utility Functions**: `src/utils/analytics.ts` with typed event tracking functions
+- **Hook Integration**: Analytics automatically triggered on user actions via useEffect hooks
+- **Error Boundaries**: Graceful handling when analytics unavailable
+
+### Analytics Dashboard Benefits
+- **User Journey**: Complete funnel from landing to token creation
+- **Error Monitoring**: Real-time error tracking and resolution insights  
+- **Feature Usage**: Popular features and optimization opportunities
+- **Performance Metrics**: Transaction success rates and completion times
+- **User Retention**: Page engagement and return patterns
+
+This 80/20 implementation provides maximum insight with minimal overhead, perfect for startup analytics needs.

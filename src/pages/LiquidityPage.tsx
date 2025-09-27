@@ -1,6 +1,7 @@
-import { useFirebaseAnalytics } from '../components/FirebaseProvider'
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useFirebaseAnalytics } from '../components/FirebaseProvider'
+import { trackPageView, trackLiquidityAdded, trackLiquidityRemoved, trackError } from '../utils/analytics'
 import { usePrivy } from '@privy-io/react-auth'
 import { useAccount, useBalance, useChainId } from 'wagmi'
 import WalletButton from '../components/WalletButton'
@@ -43,9 +44,14 @@ const formatBalance = (balance: string, decimals: number, symbol: string): strin
 }
 
 export default function LiquidityPage() {
+  const analytics = useFirebaseAnalytics()
   const { ready, authenticated } = usePrivy()
   const { address: userAddress } = useAccount()
   const currentChainId = useChainId()
+
+  useEffect(() => {
+    trackPageView(analytics, 'liquidity')
+  }, [analytics])
   
   const {
     addLiquidity,
@@ -71,7 +77,6 @@ export default function LiquidityPage() {
   
   // Mode selection state
   const [liquidityMode, setLiquidityMode] = useState<'add' | 'withdraw'>('add')
-  const [lpTokenAddress, setLpTokenAddress] = useState('')
   const [lpTokenAmount, setLpTokenAmount] = useState('')
   
   // LP Token selection for withdraw mode

@@ -1,14 +1,16 @@
 import { useFirebaseAnalytics } from '../components/FirebaseProvider'
+import { trackPageView } from '../utils/analytics'
 import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import SEO from '../components/SEO'
 import { layout, typography, colors } from '../styles/designSystem'
 
 export default function TermsOfServicePage() {
+  const analytics = useFirebaseAnalytics()
 
   useEffect(() => {
-    trackPageView('terms_of_service')
-  }, [trackPageView])
+    trackPageView(analytics, 'terms_of_service')
+  }, [analytics])
 
   return (
     <>

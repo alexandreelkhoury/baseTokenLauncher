@@ -1,14 +1,16 @@
 import { useFirebaseAnalytics } from '../components/FirebaseProvider'
+import { trackPageView } from '../utils/analytics'
 import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import SEO from '../components/SEO'
 import { layout, typography, colors } from '../styles/designSystem'
 
 export default function RiskDisclosurePage() {
+  const analytics = useFirebaseAnalytics()
 
   useEffect(() => {
-    trackPageView('risk_disclosure')
-  }, [trackPageView])
+    trackPageView(analytics, 'risk_disclosure')
+  }, [analytics])
 
   return (
     <>

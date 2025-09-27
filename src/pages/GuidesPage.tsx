@@ -1,10 +1,11 @@
-import { useFirebaseAnalytics } from '../components/FirebaseProvider'
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Link, useSearchParams } from 'react-router-dom'
+import { useFirebaseAnalytics } from '../components/FirebaseProvider'
+import { trackPageView } from '../utils/analytics'
 import SEO from '../components/SEO'
-import { animations, layout, typography, colors } from '../styles/designSystem'
-import { guides, type Guide } from '../data/guidesData'
+import { layout, typography, colors } from '../styles/designSystem'
+import { guides } from '../data/guidesData'
 
 // Modern animation variants
 const cardVariants = {
@@ -31,9 +32,14 @@ const iconVariants = {
 }
 
 export default function GuidesPage() {
+  const analytics = useFirebaseAnalytics()
   const [selectedGuide, setSelectedGuide] = useState<string | null>(null)
   const [openedGuides, setOpenedGuides] = useState<Set<string>>(new Set())
   const [searchParams, setSearchParams] = useSearchParams()
+
+  useEffect(() => {
+    trackPageView(analytics, 'guides')
+  }, [analytics])
 
   // Handle direct guide access from URL params (for FAQ redirects)
   useEffect(() => {

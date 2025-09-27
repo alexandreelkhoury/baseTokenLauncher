@@ -1,4 +1,5 @@
 import { useFirebaseAnalytics } from '../components/FirebaseProvider'
+import { trackPageView, trackTokenCreation } from '../utils/analytics'
 import { Link } from 'react-router-dom'
 import { motion, useInView } from 'framer-motion'
 import React, { useRef, useState, useEffect } from 'react'
@@ -11,6 +12,7 @@ import { useTokenForm } from '../hooks/useTokenForm'
 import { layout, typography, colors } from '../styles/designSystem'
 
 export default function HomePage() {
+  const analytics = useFirebaseAnalytics()
   const featuresRef = useRef(null)
   const formRef = useRef(null)
   const ctaRef = useRef(null)
@@ -39,7 +41,7 @@ export default function HomePage() {
   }
   
   // Use shared token form hook for validation and state management
-  const { formData, formErrors, handleInputChange, validateForm, resetForm } = useTokenForm()
+  const { formData, formErrors, handleInputChange, validateForm, resetForm, setFormErrors } = useTokenForm()
   const [showSuccess, setShowSuccess] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -59,7 +61,12 @@ export default function HomePage() {
       setFormErrors({})
       
       // Track token creation
-      trackTokenCreation(formData)
+      trackTokenCreation(analytics, {
+        name: formData.name,
+        symbol: formData.symbol,
+        supply: formData.totalSupply,
+        network: getNetworkName()
+      })
     } catch (error) {
       console.error('Token creation failed:', error)
     }
@@ -67,8 +74,8 @@ export default function HomePage() {
 
   // Track page view on mount
   useEffect(() => {
-    trackPageView('home')
-  }, [trackPageView])
+    trackPageView(analytics, 'home')
+  }, [analytics])
 
   const homePageStructuredData = {
     "@context": "https://schema.org",
@@ -717,11 +724,11 @@ export default function HomePage() {
                 ) : (
                   <motion.button
                     type="submit"
-                    disabled={isCreating || Object.keys(formErrors).some(key => formErrors[key])}
+                    disabled={isCreating || Object.keys(formErrors).some(key => formErrors[key as keyof typeof formErrors])}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     className={`w-full py-6 text-xl font-semibold rounded-2xl transition-all duration-300 ${
-                      isCreating || Object.keys(formErrors).some(key => formErrors[key])
+                      isCreating || Object.keys(formErrors).some(key => formErrors[key as keyof typeof formErrors])
                         ? 'bg-gray-600 cursor-not-allowed opacity-50'
                         : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 shadow-xl hover:shadow-2xl'
                     } text-white`}

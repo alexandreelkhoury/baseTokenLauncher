@@ -1,15 +1,21 @@
-import { useFirebaseAnalytics } from '../components/FirebaseProvider'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import { useFirebaseAnalytics } from '../components/FirebaseProvider'
+import { trackPageView } from '../utils/analytics'
 import SEO from '../components/SEO'
 import { layout, typography, colors } from '../styles/designSystem'
 import { faqs } from '../data/faqData'
 
 export default function FAQPage() {
+  const analytics = useFirebaseAnalytics()
   const [openFaq, setOpenFaq] = useState<number | null>(null)
   const [allFaqsOpen, setAllFaqsOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
+
+  useEffect(() => {
+    trackPageView(analytics, 'faq')
+  }, [analytics])
 
   const toggleAllFaqs = () => {
     setAllFaqsOpen(!allFaqsOpen)

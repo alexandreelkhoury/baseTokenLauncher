@@ -1,19 +1,18 @@
-import { useFirebaseAnalytics } from '../components/FirebaseProvider'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { useFirebaseAnalytics } from '../components/FirebaseProvider'
+import { trackPageView } from '../utils/analytics'
 import { usePrivy } from '@privy-io/react-auth'
 import { useChainId } from 'wagmi'
-import { base, baseSepolia } from 'viem/chains'
+import { base } from 'viem/chains'
 import { Link } from 'react-router-dom'
 import WalletButton from '../components/WalletButton'
-import { PageLayout, PageHeader } from '../components/PageLayout'
 import { GlassCard } from '../components/GlassCard'
 import SEO from '../components/SEO'
-import StatusMessage from '../components/StatusMessage'
 import { CardSkeleton } from '../components/LoadingSkeleton'
 import { useOpenZeppelinTokenDeployment } from '../hooks/useOpenZeppelinTokenDeployment'
 import { useTokenDetails } from '../hooks/useTokenDetails'
-import { animations, loadingStates, typography, colors } from '../styles/designSystem'
+import { animations, typography, colors } from '../styles/designSystem'
 
 interface TokenCardProps {
   tokenData: {
@@ -188,9 +187,14 @@ function TokenCard({ tokenData, index, chainId }: TokenCardProps) {
 }
 
 export default function TokensPage() {
+  const analytics = useFirebaseAnalytics()
   const { ready, authenticated, user } = usePrivy()
   const chainId = useChainId()
-  const { userTokens, refetchUserTokens, isConnected, isCorrectChain, isRefreshing, isInitialLoading } = useOpenZeppelinTokenDeployment()
+  const { userTokens, refetchUserTokens, isCorrectChain, isRefreshing, isInitialLoading } = useOpenZeppelinTokenDeployment()
+
+  useEffect(() => {
+    trackPageView(analytics, 'tokens')
+  }, [analytics])
 
   // Debug logging
   console.log('🔍 TokensPage render:', {

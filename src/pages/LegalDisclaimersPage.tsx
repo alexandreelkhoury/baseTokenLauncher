@@ -1,14 +1,16 @@
 import { useFirebaseAnalytics } from '../components/FirebaseProvider'
+import { trackPageView } from '../utils/analytics'
 import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import SEO from '../components/SEO'
 import { layout, typography, colors } from '../styles/designSystem'
 
 export default function LegalDisclaimersPage() {
+  const analytics = useFirebaseAnalytics()
 
   useEffect(() => {
-    trackPageView('legal_disclaimers')
-  }, [trackPageView])
+    trackPageView(analytics, 'legal_disclaimers')
+  }, [analytics])
 
   return (
     <>

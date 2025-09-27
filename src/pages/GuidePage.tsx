@@ -1,4 +1,3 @@
-import { useFirebaseAnalytics } from '../components/FirebaseProvider'
 import { Navigate } from 'react-router-dom'
 
 /**
