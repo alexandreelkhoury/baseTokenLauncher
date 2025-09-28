@@ -512,9 +512,21 @@ export default function GuidesPage() {
                   </div>
                 </div>
                 
-                {/* Connecting line (except for last item) */}
+                {/* Modern connecting element (except for last item) */}
                 {index < currentGuide.content.length - 1 && (
-                  <div className="ml-6 mt-6 w-px h-8 bg-gradient-to-b from-blue-500/50 to-purple-500/50"></div>
+                  <motion.div 
+                    className="flex justify-center mt-8 mb-4"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, delay: 0.7 + index * 0.1 }}
+                  >
+                    {/* Elegant connecting dots centered */}
+                    <div className="flex flex-col items-center space-y-3">
+                      <div className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 animate-pulse"></div>
+                      <div className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-400 to-purple-400 animate-pulse delay-150"></div>
+                      <div className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-300 to-purple-300 animate-pulse delay-300"></div>
+                    </div>
+                  </motion.div>
                 )}
               </motion.div>
             ))}
