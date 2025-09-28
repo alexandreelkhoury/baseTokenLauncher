@@ -355,20 +355,16 @@ export default function HomePage() {
                 className="bg-gradient-to-br from-orange-500/10 to-yellow-500/10 border border-orange-500/20 rounded-2xl p-6"
               >
                 <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-cyan-400 rounded-xl flex items-center justify-center mr-4 p-2">
-                    <svg className="w-8 h-8 text-white" viewBox="0 0 397.7 311.7" fill="currentColor">
-                      <defs>
-                        <linearGradient id="solanaGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" style={{ stopColor: '#9945FF' }} />
-                          <stop offset="25%" style={{ stopColor: '#8A2BE2' }} />
-                          <stop offset="50%" style={{ stopColor: '#00D4AA' }} />
-                          <stop offset="100%" style={{ stopColor: '#00D4AA' }} />
-                        </linearGradient>
-                      </defs>
-                      <path d="m64.6 237.9c2.4-2.4 5.7-3.8 9.2-3.8h317.4c5.8 0 8.7 7 4.6 11.1l-62.7 62.7c-2.4 2.4-5.7 3.8-9.2 3.8h-317.4c-5.8 0-8.7-7-4.6-11.1z" fill="url(#solanaGradient)"/>
-                      <path d="m64.6 3.8c2.4-2.4 5.7-3.8 9.2-3.8h317.4c5.8 0 8.7 7 4.6 11.1l-62.7 62.7c-2.4 2.4-5.7 3.8-9.2 3.8h-317.4c-5.8 0-8.7-7-4.6-11.1z" fill="url(#solanaGradient)"/>
-                      <path d="m333.1 120.1c-2.4-2.4-5.7-3.8-9.2-3.8h-317.4c-5.8 0-8.7 7-4.6 11.1l62.7 62.7c2.4 2.4 5.7 3.8 9.2 3.8h317.4c5.8 0 8.7-7 4.6-11.1z" fill="url(#solanaGradient)"/>
-                    </svg>
+                  <div className="w-12 h-12 bg-black rounded-xl flex items-center justify-center mr-4 p-2">
+                    <img 
+                      src="https://cryptologos.cc/logos/solana-sol-logo.png" 
+                      alt="Solana Logo" 
+                      className="w-8 h-8 object-contain"
+                      onError={(e) => {
+                        // Fallback to another official Solana logo URL if first one fails
+                        e.currentTarget.src = "https://upload.wikimedia.org/wikipedia/en/b/b9/Solana_logo.png"
+                      }}
+                    />
                   </div>
                   <h3 className="text-xl font-bold text-orange-400">Solana</h3>
                 </div>
