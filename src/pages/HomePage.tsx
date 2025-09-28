@@ -355,13 +355,17 @@ export default function HomePage() {
                 className="bg-gradient-to-br from-orange-500/10 to-yellow-500/10 border border-orange-500/20 rounded-2xl p-6"
               >
                 <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-purple-600 via-green-500 to-blue-400 rounded-xl flex items-center justify-center mr-4 p-2">
-                    <svg className="w-8 h-8 text-white" viewBox="0 0 646 527" fill="currentColor">
-                      <g fillRule="evenodd" clipRule="evenodd">
-                        <path d="M321.1 15.3c21.9 0 42 7.8 57.5 20.8l270.6 226.8c21.1 17.7 21.1 49.1 0 66.8L378.6 556.5c-15.5 13-35.6 20.8-57.5 20.8s-42-7.8-57.5-20.8L92.9 329.7c-21.1-17.7-21.1-49.1 0-66.8L363.6 36.1c15.5-13 35.6-20.8 57.5-20.8z"/>
-                        <path d="m457.5 313.1 110.8-92.8c13.2-11.1 13.2-30.8 0-41.9L457.5 85.6c-9.7-8.1-22.3-12.3-35.1-12.3s-25.4 4.2-35.1 12.3L276.5 178.4c-13.2 11.1-13.2 30.8 0 41.9l110.8 92.8c9.7 8.1 22.3 12.3 35.1 12.3s25.4-4.2 35.1-12.3z" opacity=".5"/>
-                        <path d="m188.5 313.1 110.8-92.8c13.2-11.1 13.2-30.8 0-41.9L188.5 85.6c-9.7-8.1-22.3-12.3-35.1-12.3s-25.4 4.2-35.1 12.3L7.5 178.4c-13.2 11.1-13.2 30.8 0 41.9l110.8 92.8c9.7 8.1 22.3 12.3 35.1 12.3s25.4-4.2 35.1-12.3z" opacity=".5"/>
-                      </g>
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-600 via-purple-500 to-green-400 rounded-xl flex items-center justify-center mr-4 p-2">
+                    <svg className="w-8 h-8 text-white" viewBox="0 0 397.7 311.7" fill="currentColor">
+                      <defs>
+                        <linearGradient id="solanaGradient" x1="360%" y1="330%" x2="30%" y2="30%">
+                          <stop offset="0%" style={{ stopColor: '#00FFA3' }} />
+                          <stop offset="100%" style={{ stopColor: '#DC1FFF' }} />
+                        </linearGradient>
+                      </defs>
+                      <path d="m64.6 237.9c2.4-2.4 5.7-3.8 9.2-3.8h317.4c5.8 0 8.7 7 4.6 11.1l-62.7 62.7c-2.4 2.4-5.7 3.8-9.2 3.8h-317.4c-5.8 0-8.7-7-4.6-11.1z" fill="url(#solanaGradient)"/>
+                      <path d="m64.6 3.8c2.4-2.4 5.7-3.8 9.2-3.8h317.4c5.8 0 8.7 7 4.6 11.1l-62.7 62.7c-2.4 2.4-5.7 3.8-9.2 3.8h-317.4c-5.8 0-8.7-7-4.6-11.1z" fill="url(#solanaGradient)"/>
+                      <path d="m333.1 120.1c-2.4-2.4-5.7-3.8-9.2-3.8h-317.4c-5.8 0-8.7 7-4.6 11.1l62.7 62.7c2.4 2.4 5.7 3.8 9.2 3.8h317.4c5.8 0 8.7-7 4.6-11.1z" fill="url(#solanaGradient)"/>
                     </svg>
                   </div>
                   <h3 className="text-xl font-bold text-orange-400">Solana</h3>
@@ -879,7 +883,7 @@ export default function HomePage() {
               </div>
 
               {/* Trust indicators */}
-              <div className="flex justify-center items-center space-x-8 mt-8 pt-8 border-t border-white/10">
+              <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 mt-8 pt-8 border-t border-white/10">
                 <div className={`flex items-center space-x-2 ${typography.bodyText}`}>
                   <svg className={`w-5 h-5 ${typography.success.replace('font-medium', '')}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -890,7 +894,7 @@ export default function HomePage() {
                   <svg className={`w-5 h-5 ${typography.info.replace('font-medium', '')}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
-                  <span className={typography.label}>2s Confirmation</span>
+                  <span className={typography.label}>5s Deploy</span>
                 </div>
                 <div className={`flex items-center space-x-2 ${typography.bodyText}`}>
                   <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

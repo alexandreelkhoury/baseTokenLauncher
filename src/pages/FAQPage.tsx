@@ -411,7 +411,7 @@ export default function FAQPage() {
               </div>
 
               {/* Trust indicators */}
-              <div className="flex justify-center items-center space-x-8 mt-8 pt-8 border-t border-white/10">
+              <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 mt-8 pt-8 border-t border-white/10">
                 <div className={`flex items-center space-x-2 ${typography.bodyText}`}>
                   <svg className={`w-5 h-5 ${typography.success.replace('font-medium', '')}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -422,7 +422,7 @@ export default function FAQPage() {
                   <svg className={`w-5 h-5 ${typography.info.replace('font-medium', '')}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
-                  <span className={typography.label}>15s Deploy</span>
+                  <span className={typography.label}>5s Deploy</span>
                 </div>
                 <div className={`flex items-center space-x-2 ${typography.bodyText}`}>
                   <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
