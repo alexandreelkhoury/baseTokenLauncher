@@ -23,29 +23,30 @@ export default function Header() {
       transition={{ duration: 0.5 }}
       className="fixed top-0 left-0 right-0 z-50 w-full bg-gray-800/95 backdrop-blur-md border-b border-gray-700 shadow-lg"
     >
-      <div className="px-8">
-        <div className="flex h-20 items-center justify-between w-full">
+      <div className="px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 sm:h-20 items-center justify-between w-full">
           {/* Logo - Left side */}
-          <div className="flex items-center flex-shrink-0">
+          <div className="flex items-center flex-shrink-0 min-w-0">
             <motion.div 
               className="flex items-center"
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
             >
-              <Link to="/" className="flex items-center space-x-4">
+              <Link to="/" className="flex items-center space-x-2 sm:space-x-4">
                 <motion.div 
-                  className="h-12 w-12 flex items-center justify-center"
+                  className="h-8 w-8 sm:h-12 sm:w-12 flex items-center justify-center flex-shrink-0"
                   whileHover={{ rotate: 360 }}
                   transition={{ duration: 0.5 }}
                 >
                   <img 
                     src="/LOGO.png" 
                     alt="Base Token Creator Logo" 
-                    className="h-10 w-10 object-contain"
+                    className="h-6 w-6 sm:h-10 sm:w-10 object-contain"
                   />
                 </motion.div>
-                <span className="text-2xl font-bold text-white whitespace-nowrap">
-                  Base Token Creator
+                <span className="text-lg sm:text-2xl font-bold text-white whitespace-nowrap truncate max-w-[120px] xs:max-w-[150px] sm:max-w-none">
+                  <span className="hidden sm:inline">Base Token Creator</span>
+                  <span className="sm:hidden">Base Creator</span>
                 </span>
               </Link>
             </motion.div>
@@ -77,21 +78,23 @@ export default function Header() {
           </nav>
 
           {/* Right side - Wallet + Mobile menu */}
-          <div className="flex items-center space-x-4 flex-shrink-0">
-            <WalletButton />
+          <div className="flex items-center space-x-2 sm:space-x-4 flex-shrink-0">
+            <div className="flex-shrink-0">
+              <WalletButton />
+            </div>
             
             {/* Mobile menu button - Shows below 1400px */}
-            <div className="xl:hidden">
+            <div className="xl:hidden flex-shrink-0">
               <motion.button 
                 type="button" 
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="text-gray-300 hover:text-white focus:outline-none p-3 rounded-lg hover:bg-white/5"
+                className="text-gray-300 hover:text-white focus:outline-none p-2 sm:p-3 rounded-lg hover:bg-white/5"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
                 aria-expanded={mobileMenuOpen}
                 aria-label="Toggle mobile menu"
               >
-                <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                <svg className="h-6 w-6 sm:h-7 sm:w-7" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
                   {mobileMenuOpen ? (
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                   ) : (

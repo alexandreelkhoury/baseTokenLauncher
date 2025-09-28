@@ -155,37 +155,44 @@ export default function WalletButton() {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-          className={`${colors.glassCard} px-4 py-2 hover:border-white/30 transition-all duration-200 flex items-center space-x-3 min-w-0`}
+          className={`${colors.glassCard} px-2 sm:px-4 py-2 hover:border-white/30 transition-all duration-200 flex items-center space-x-2 sm:space-x-3 min-w-0 max-w-[140px] sm:max-w-none`}
           aria-expanded={isDropdownOpen}
           aria-haspopup="true"
         >
           {/* Wallet Avatar */}
-          <div className="relative w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center flex-shrink-0">
-            <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="relative w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center flex-shrink-0">
+            <svg className="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
             </svg>
             {/* Connection Status Indicator */}
-            <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-gray-900 bg-green-500 flex items-center justify-center">
-              <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></div>
+            <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full border-1 sm:border-2 border-gray-900 bg-green-500 flex items-center justify-center">
+              <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-white animate-pulse"></div>
             </div>
           </div>
           
           {/* Wallet Address */}
-          <div className="flex flex-col items-start min-w-0">
+          <div className="flex flex-col items-start min-w-0 hidden sm:flex">
             <span className="text-white font-medium text-sm truncate">
               {`${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`}
             </span>
             {chainInfo && (
               <span className={`text-xs flex items-center space-x-1 ${chainInfo.color}`}>
                 <span>{chainInfo.icon}</span>
-                <span>{chainInfo.name}</span>
+                <span className="truncate">{chainInfo.name}</span>
               </span>
             )}
           </div>
           
+          {/* Mobile: Just show short address */}
+          <div className="flex flex-col items-start min-w-0 sm:hidden">
+            <span className="text-white font-medium text-xs truncate">
+              {`${walletAddress.slice(0, 4)}...${walletAddress.slice(-2)}`}
+            </span>
+          </div>
+          
           {/* Dropdown Arrow */}
           <svg 
-            className={`w-4 h-4 text-gray-400 transition-transform duration-200 flex-shrink-0 ${isDropdownOpen ? 'rotate-180' : ''}`} 
+            className={`w-3 h-3 sm:w-4 sm:h-4 text-gray-400 transition-transform duration-200 flex-shrink-0 ${isDropdownOpen ? 'rotate-180' : ''}`} 
             fill="none" 
             stroke="currentColor" 
             viewBox="0 0 24 24"
@@ -213,7 +220,7 @@ export default function WalletButton() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 10, scale: 0.95 }}
                 transition={{ duration: 0.15 }}
-                className="absolute right-0 mt-2 w-72 rounded-2xl shadow-2xl z-[9999] overflow-hidden"
+                className="absolute right-0 mt-2 w-64 sm:w-72 rounded-2xl shadow-2xl z-[9999] overflow-hidden"
                 style={{
                   background: 'rgba(17, 24, 39, 0.98)',
                   backdropFilter: 'blur(24px)',
@@ -363,13 +370,14 @@ export default function WalletButton() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       onClick={login}
-      className={`${colors.primaryButton} px-4 py-2`}
+      className={`${colors.primaryButton} px-3 sm:px-4 py-2 text-sm sm:text-base`}
     >
-      <div className="flex items-center space-x-2">
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className="flex items-center space-x-1.5 sm:space-x-2">
+        <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
         </svg>
-        <span>Connect Wallet</span>
+        <span className="hidden xs:inline">Connect Wallet</span>
+        <span className="xs:hidden">Connect</span>
       </div>
     </motion.button>
   )
