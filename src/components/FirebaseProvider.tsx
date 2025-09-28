@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { Analytics } from 'firebase/analytics'
+import type { Analytics } from 'firebase/analytics'
 import { analytics } from '../config/firebase'
 
 interface FirebaseContextType {

@@ -786,17 +786,17 @@ export default function LiquidityPage() {
                 </p>
                 
                 {/* 2-Step Process Notice */}
-                <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 max-w-2xl mx-auto">
+                <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-4 max-w-2xl mx-auto">
                   <div className="flex items-center justify-center space-x-2 mb-2">
-                    <svg className="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    <span className="font-semibold text-red-300">2-Step Process</span>
+                    <span className="font-semibold text-blue-300">2-Step Process</span>
                   </div>
-                  <p className="text-sm text-red-200">
+                  <p className="text-sm text-blue-200">
                     Withdrawing liquidity requires <strong>2 transactions</strong>: 
                     <br />
-                    <span className="text-red-300">1) Approve LP tokens</span> → <span className="text-red-300">2) Remove liquidity</span>
+                    <span className="text-blue-300">1) Approve LP tokens</span> → <span className="text-blue-300">2) Remove liquidity</span>
                   </p>
                 </div>
               </div>

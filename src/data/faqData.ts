@@ -1,7 +1,7 @@
 export const faqs = [
   {
     question: "How much does it cost to create an ERC20 token on Base blockchain?",
-    answer: "Creating an ERC20 token on Base blockchain costs between $3-15 in gas fees, significantly cheaper than Ethereum mainnet ($50-200). Base Layer 2 network offers up to 90% lower transaction costs while maintaining full Ethereum compatibility for token creation and deployment.",
+    answer: "Creating an ERC20 token on Base blockchain costs 0.02 ETH creation fee plus $3-15 in gas fees, significantly cheaper than Ethereum mainnet ($50-200). Base Layer 2 network offers up to 90% lower transaction costs while maintaining full Ethereum compatibility for token creation and deployment.",
     relatedGuide: "getting-started"
   },
   {
@@ -63,7 +63,7 @@ export const faqs = [
   },
   {
     question: "What are Base blockchain gas fees for token operations?",
-    answer: "Base gas fees are 90% cheaper than Ethereum: token transfers cost $0.001-0.01, token creation costs $3-15, and complex operations cost $0.05-1.00. Gas fees fluctuate based on network congestion and transaction complexity.",
+    answer: "Base gas fees are 90% cheaper than Ethereum: token transfers cost $0.001-0.01, token creation costs 0.02 ETH fee plus $3-15 gas, and complex operations cost $0.05-1.00. Gas fees fluctuate based on network congestion and transaction complexity.",
     relatedGuide: "getting-started"
   },
   {

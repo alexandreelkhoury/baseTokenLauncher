@@ -1,4 +1,4 @@
-import { Analytics, logEvent } from 'firebase/analytics'
+import { type Analytics, logEvent } from 'firebase/analytics'
 
 // Page tracking
 export const trackPageView = (analytics: Analytics | null, pageName: string) => {
