@@ -1,7 +1,7 @@
 export const faqs = [
   {
     question: "How much does it cost to create an ERC20 token on Base blockchain?",
-    answer: "Creating an ERC20 token on Base blockchain costs 0.02 ETH creation fee plus $3-15 in gas fees, significantly cheaper than Ethereum mainnet ($50-200). Base Layer 2 network offers up to 90% lower transaction costs while maintaining full Ethereum compatibility for token creation and deployment.",
+    answer: "Creating an ERC20 token on Base blockchain costs 0.02 ETH creation fee plus less than $1 in gas fees, significantly cheaper than Ethereum mainnet ($50-200). Base Layer 2 network offers up to 90% lower transaction costs while maintaining full Ethereum compatibility for token creation and deployment.",
     relatedGuide: "getting-started"
   },
   {
@@ -11,12 +11,12 @@ export const faqs = [
   },
   {
     question: "Can I create a token on Base without coding experience?",
-    answer: "Yes! Our no-code Base token launcher allows anyone to create ERC20 tokens without programming knowledge. Simply fill in your token details (name, symbol, supply), pay the gas fee, and your token is deployed automatically to Base blockchain within minutes.",
+    answer: "Yes! Our no-code Base token launcher allows anyone to create ERC20 tokens without programming knowledge. Simply fill in your token details (name, symbol, supply), pay the gas fee, and your token is deployed automatically to Base blockchain within 5 seconds.",
     relatedGuide: "token-creation"
   },
   {
     question: "How long does Base token deployment take?",
-    answer: "Token deployment on Base network takes 1-3 minutes on average. The process includes smart contract compilation, blockchain deployment, and automatic verification on BaseScan explorer. Your token becomes tradeable immediately after successful deployment.",
+    answer: "Token deployment on Base network takes 5 seconds on average. The process includes smart contract compilation, blockchain deployment, and automatic verification on BaseScan explorer. Your token becomes tradeable immediately after successful deployment.",
     relatedGuide: "token-creation"
   },
   {
@@ -63,7 +63,7 @@ export const faqs = [
   },
   {
     question: "What are Base blockchain gas fees for token operations?",
-    answer: "Base gas fees are 90% cheaper than Ethereum: token transfers cost $0.001-0.01, token creation costs 0.02 ETH fee plus $3-15 gas, and complex operations cost $0.05-1.00. Gas fees fluctuate based on network congestion and transaction complexity.",
+    answer: "Base gas fees are 90% cheaper than Ethereum: token transfers cost $0.001-0.01, token creation costs 0.02 ETH fee plus less than $1 gas, and complex operations cost $0.05-1.00. Gas fees fluctuate based on network congestion and transaction complexity.",
     relatedGuide: "getting-started"
   },
   {
@@ -90,7 +90,7 @@ export const faqs = [
   },
   {
     question: "Base vs Ethereum: Which is better for token creation?",
-    answer: "Base offers faster transactions (2-second finality vs 15 seconds), 90% lower fees ($0.01 vs $50), and Coinbase integration. Ethereum has larger ecosystem and liquidity. Choose Base for cost-efficiency, Ethereum for maximum DeFi access.",
+    answer: "Base offers faster transactions (2-second finality vs 5 seconds), 90% lower fees (less than $1 vs $50), and Coinbase integration. Ethereum has larger ecosystem and liquidity. Choose Base for cost-efficiency, Ethereum for maximum DeFi access.",
     relatedGuide: "getting-started"
   },
   {

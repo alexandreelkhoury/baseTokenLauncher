@@ -12,7 +12,7 @@ interface SEOProps {
 
 export default function SEO({ 
   title = "Base Token Creator - Create ERC20 Tokens on Base Blockchain | No Code Required",
-  description = "Create ERC20 tokens on Base blockchain in minutes. No coding required! Deploy tokens with $3-15 gas fees, 90% lower than Ethereum. Add liquidity on Uniswap and launch your crypto project today.",
+  description = "Create ERC20 tokens on Base blockchain in 5 seconds. No coding required! Deploy tokens with less than $1 gas fees, 90% lower than Ethereum. Add liquidity on Uniswap and launch your crypto project today.",
   keywords = "base token creator, erc20 token generator, base blockchain, create token base, no code token creator, base token launcher, coinbase base, ethereum layer 2, uniswap v3, basescan",
   canonical,
   ogImage = "/og-image.png",

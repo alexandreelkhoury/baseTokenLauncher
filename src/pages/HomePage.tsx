@@ -106,7 +106,7 @@ export default function HomePage() {
 
       <SEO
         title="Base Token Creator - Create ERC20 Tokens on Base Blockchain | 90% Lower Fees"
-        description="Create ERC20 tokens on Base blockchain in minutes with no coding required. Deploy with $3-15 gas fees, 90% lower than Ethereum. Add Uniswap liquidity instantly!"
+        description="Create ERC20 tokens on Base blockchain in 5 seconds with no coding required. Deploy with less than $1 gas fees, 90% lower than Ethereum. Add Uniswap liquidity instantly!"
         keywords="base token creator, create erc20 token base, base blockchain token generator, no code token creator, coinbase base, ethereum layer 2, uniswap base tokens"
         canonical="/"
         structuredData={homePageStructuredData}
@@ -172,7 +172,7 @@ export default function HomePage() {
           >
             The most <span className="text-blue-400 font-semibold">powerful</span> and <span className="text-purple-400 font-semibold">user-friendly</span> way to launch ERC20 tokens on Base blockchain. 
             <br />
-            <span className="text-xl text-gray-400 mt-4 block">No coding skills required. Deploy in under 15 seconds.</span>
+            <span className="text-xl text-gray-400 mt-4 block">No coding skills required. Deploy in 5 seconds.</span>
           </motion.p>
 
           {/* Action Buttons */}
@@ -335,7 +335,7 @@ export default function HomePage() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-400">Transaction Speed</span>
-                    <span className="text-red-400 font-semibold">15 seconds</span>
+                    <span className="text-red-400 font-semibold">5 seconds</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-400">Visibility</span>
@@ -484,7 +484,7 @@ export default function HomePage() {
                   </svg>
                 </div>
                 <h3 className={`${typography.cardTitle} text-xl mb-4`}>Token Creation</h3>
-                <p className={typography.bodyText}>Deploy fully functional ERC20 tokens with customizable parameters in minutes.</p>
+                <p className={typography.bodyText}>Deploy fully functional ERC20 tokens with customizable parameters in 5 seconds.</p>
               </motion.div>
 
               <motion.div 

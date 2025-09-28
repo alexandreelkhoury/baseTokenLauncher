@@ -90,7 +90,7 @@ export default function CreateTokenPage() {
     "@context": "https://schema.org",
     "@type": "WebPage",
     "name": "Create Base Token - ERC20 Token Generator",
-    "description": "Create and deploy ERC20 tokens on Base blockchain in 3 minutes. No coding required, $3-15 gas fees only.",
+    "description": "Create and deploy ERC20 tokens on Base blockchain in 5 seconds. No coding required, less than $1 gas fees only.",
     "url": "https://base-token-creator.com/create"
   }
 
@@ -118,8 +118,8 @@ export default function CreateTokenPage() {
       </div>
 
       <SEO
-        title="Create Base Token - Deploy ERC20 Tokens in 3 Minutes | No Coding Required"
-        description="Create and deploy ERC20 tokens on Base blockchain in 3 minutes. No coding experience needed! Gas fees from $3-15. Connect wallet and launch your token instantly."
+        title="Create Base Token - Deploy ERC20 Tokens in 5 Seconds | No Coding Required"
+        description="Create and deploy ERC20 tokens on Base blockchain in 5 seconds. No coding experience needed! Gas fees less than $1. Connect wallet and launch your token instantly."
         keywords="create base token, deploy erc20 token base, base token generator, no code token creation, base blockchain deployment, erc20 token maker"
         canonical="/create"
         structuredData={createTokenStructuredData}
@@ -162,7 +162,7 @@ export default function CreateTokenPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            Deploy your own ERC20 token on Base blockchain in minutes. No coding experience required! Gas fees from $3-15.
+            Deploy your own ERC20 token on Base blockchain in 5 seconds. No coding experience required! Gas fees less than $1.
           </motion.p>
 
           {/* Stats bar */}
@@ -173,7 +173,7 @@ export default function CreateTokenPage() {
             className="flex justify-center items-center space-x-8 mt-12"
           >
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-400">3-15$</div>
+              <div className="text-2xl font-bold text-blue-400">&lt;$1</div>
               <div className="text-sm text-gray-400">Gas Fees</div>
             </div>
             <div className="w-px h-8 bg-gray-700"></div>

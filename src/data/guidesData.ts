@@ -11,8 +11,8 @@ export const guides = [
         text: 'You only need 4 simple parameters:\n\n• Name: The full name (e.g., "My Awesome Token")\n• Symbol: 3-4 letters (e.g., "MAT")\n• Decimals: Always use 18 (this is the standard)\n• Total Supply: Usually 1 billion for memecoins (1,000,000,000)\n\nThat\'s it! No complex tokenomics needed.'
       },
       {
-        title: '⚡ Deploy Your Token (15 seconds)',
-        text: '1. Go to our Create Token page\n2. Fill in your token details\n3. Connect your wallet (you need ~$5-15 in ETH for gas)\n4. Click "Deploy Token"\n5. Wait 15 seconds for confirmation\n\n✅ Your token is now live on Base blockchain!'
+        title: '⚡ Deploy Your Token (5 seconds)',
+        text: '1. Go to our Create Token page\n2. Fill in your token details\n3. Connect your wallet (you need less than $1 in ETH for gas)\n4. Click "Deploy Token"\n5. Wait 5 seconds for confirmation\n\n✅ Your token is now live on Base blockchain!'
       },
       {
         title: '🎉 Share Your Token',

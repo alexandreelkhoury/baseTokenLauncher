@@ -5,7 +5,7 @@ import WalletButton from './WalletButton'
 
 const navigation = [
   { name: 'Home', href: '/', title: 'Base Token Creator - Create ERC20 Tokens on Base Blockchain', icon: '🏠' },
-  { name: 'Create Token', href: '/create', title: 'Create Base Token - Deploy ERC20 Tokens in 3 Minutes', icon: '🚀' },
+  { name: 'Create Token', href: '/create', title: 'Create Base Token - Deploy ERC20 Tokens in 5 Seconds', icon: '🚀' },
   // { name: 'My Tokens', href: '/tokens', title: 'My Base Tokens - Manage Your ERC20 Tokens', icon: '💎' },
   { name: 'Liquidity', href: '/liquidity', title: 'Base Liquidity Management - Uniswap V2 Integration', icon: '💧' },
   { name: 'Guides', href: '/guides', title: 'Base Token Creation Guides - Step-by-Step Tutorials', icon: '📚' },
